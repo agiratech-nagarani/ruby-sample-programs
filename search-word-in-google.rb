@@ -5,7 +5,7 @@ require 'mechanize'
 class Google 
   def search
 
-a = Mechanize.new 
+#a = Mechanize.new 
 
 a.get('http://google.com/') do |page|
   search_result = page.form_with(:name => 'f') do |search|
