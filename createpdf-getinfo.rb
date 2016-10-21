@@ -1,28 +1,51 @@
 require "prawn"
 require "pdf-reader"
 
+module Getpdf
+
+  attr_accessor :info
+
+        def intialize info
+        @info=info
+        end
+end
+
 class Createpdf
-def self.employee
+  include Getpdf
+            def employee
+                      
+                    @info={
+                    :Employeename=>"Nagarani",
+                    :contactinfo=>"nagarani@agiratech.com",
+                    :imagepath=>"/home/agira/ruby-sample-programs/logo-site.png"
+                    }
 
-        info={
-        :Employeename=>"Nagarani",
-        :contactinfo=>"nagarani@agiratech.com",
-        :imagepath=>"/home/agira/ruby-sample-programs/logo-site.png"
-        }
+                    Prawn::Document.generate("helloworld.pdf" ,:info=>@info) do
+                    	  text "Hello world !  \n how are you all  "
+                     
+                    	  image "/home/agira/ruby-sample-programs/logo-site.png"
+                    end
 
-        Prawn::Document.generate("helloworld.pdf" ,:info=>info) do
-        	  text "Hello World!  \n how are you all  "
-         
-        	  image "/home/agira/rubyprograms/programs/logo-site.png"
+                    
+              end 
+end
+
+class Createpdf1 < Createpdf
+
+        def displa
+        reader = PDF::Reader.new("/home/agira/ruby-sample-programs/helloworld.pdf")
+                puts reader.info
+                reader.pages.each do |page|
+                     puts page.text
+                   end
+
         end
 
-        reader = PDF::Reader.new("/home/agira/rubyprograms/programs/helloworld.pdf")
-        puts reader.info
-        reader.pages.each do |page|
-     	     puts page.text
-	       end
-  end 
 end
 
 puts "we have to getting the information from our created pdf using prawn:"
-Createpdf.employee
+
+c1=Createpdf1.new
+c1.employee
+
+c1.displa
