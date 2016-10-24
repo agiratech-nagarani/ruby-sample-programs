@@ -1,34 +1,23 @@
 module Change
-attr_accessor :filename
-
-    def initialize 
+ attr_accessor :filename
+  def initialize 
       @file_names=filename
-    end
-
-      def another
-      @file_names = ['/home/agira/ruby-sample-programs/replacestring.txt']
+  end
+  def another_string
+      @file_names = ['/home/agira/ruby-sample-programs/ruby/replacestring.txt']
       @file_names.each do |file_name|
       text = File.read(file_name)
-      new_contents = text.gsub(/k/, "ka")
+      new_contents = text.gsub(/ka/, "k")
       puts new_contents 
-      
-            File.open(file_name, "w") {|file| file.puts new_contents }
-
-        end
-
+      File.open(file_name, "w") {|file| file.puts new_contents }
       end
-
+  end
+end
+class ReplaceString
+   extend Change
+end
+class ReplaceString1 < ReplaceString
 end
 
-
-class Replacestring
-
-extend Change
-
-end
-
-class Replacestring1 < Replacestring
-end
-
-Replacestring1.another
+ReplaceString1.another_string
 
